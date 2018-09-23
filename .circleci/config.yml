@@ -21,6 +21,6 @@ jobs:
       - run:
          name: "Build docker image and push to docker hub"
          command: |
-          |  docker build -t blackorchids/example-nodejs-express:latest .
-          |  docker push blackorchids/example-nodejs-express:latest
+            docker build -t blackorchids/example-nodejs-express:latest .
+            docker push blackorchids/example-nodejs-express:latest
       - run: echo Done
