@@ -17,3 +17,10 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: echo Done
+      - setup_remote_docker
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - run:
+         name: "Build docker image and push to docker hub"
+         command:
+            docker build -t blackorchids/circleci:latest .
+            docker push blackorchids/circleci:latest
