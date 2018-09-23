@@ -18,12 +18,12 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
       - setup_remote_docker
       - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      # - run:
-      #    name: "Build docker image and push to docker hub"
-      #    command: |
-      #       cp Dockerfile.production Dockerfile
-      #       docker build -t blackorchids/example-nodejs-express:latest .
-      #       docker push blackorchids/example-nodejs-express:latest
+      - run:
+         name: "Build docker image and push to docker hub"
+         command: |
+            cp Dockerfile.production Dockerfile
+            docker build -t blackorchids/example-nodejs-express:latest .
+            docker push blackorchids/example-nodejs-express:latest
       -run:
         name: "Call to rancher to deploy"
         command: |
@@ -34,6 +34,6 @@ jobs:
                etlweather/gaucho upgrade $RANCHER_EXAMPLE_NODEJS \
                --imageUuid 'docker:blackorchids/example-nodejs-express:latest' \
                --batch_size 3 --start_first \
-               --auto_complete --timeout 600\
+               --auto_complete --timeout 600 \
                /
       - run: echo Done
